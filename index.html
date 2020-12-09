@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    d1{
+        text-align: center;
+     }
+    body{
+    background-image: url('http://localhost:8080/reg2.jpg');
+    /* background-size: contain; */
+    background-size: 100%;
+    } 
+    div{
+        color: black;
+    }
+    </style>
+
+
+</head>
+<body style="text-align: center;">
+    <h1>首页</h1>
+    <h2>登录</h2>  
+    <div>账号 <input type="text" name="uname" id="uname"></div> 
+    <div>密码 <input type="text" name="upwd" id="upwd"></div> 
+    <br>
+    <input type="button" onclick="javascript:tologin()" value="登录">
+     &nbsp;
+    <a href="reg.html" style="text-decoration:none">注册</a>
+    <!-- <div id="d1" style="border: red solid 1px; width: 100px; height: 50px;" >   </div> -->
+
+
+     <script>
+        //var d1=document.getElementById('d1');
+        function tologin(){
+        var uname = document.getElementById('uname');
+        var upwd = document.getElementById('upwd')
+
+
+//    ajax请求
+ //  1，创建xhr对象
+ //var xhr = new XMLHttpRequest();
+   // 2，创建监听 接收响应 根据响应做判断
+   xhr.onreadystatechange=function(){
+ // 判断
+ if(xhr.readyState==4 && xhr.status==200){
+     var r = xhr.responseText;
+     console.log(r);
+     if(r==1){
+         d1.innerHTML="登录成功";
+         self.location="list.html"
+     }else{
+         d1.innerHTML="登录失败";
+     }
+ }
+}
+
+// 创建请求，打开连接 open（请求方式，求情地址，是否异步）
+xhr.open('post','/user/login',true);
+
+xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+
+var userdata=`uname=${uname.value}&upwd=${upwd.value}`;
+xhr.send(userdata);
+
+  };
+     </script>
+
+
+</body>
+
+
+
+</html>
